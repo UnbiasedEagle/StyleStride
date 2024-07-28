@@ -26,6 +26,7 @@ import { MoreHorizontal, PlusCircle, User2 } from 'lucide-react';
 import Link from 'next/link';
 import prisma from '@/lib/db';
 import Image from 'next/image';
+import { unstable_noStore as noStore } from 'next/cache';
 
 const getBanners = async () => {
   const banners = await prisma.banner.findMany({
@@ -38,6 +39,8 @@ const getBanners = async () => {
 };
 
 const BannerPage = async () => {
+  noStore();
+
   const banners = await getBanners();
 
   return (

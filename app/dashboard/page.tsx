@@ -1,7 +1,6 @@
 import { DashboardChart } from '@/components/dashboard/dashboard-chart';
 import { DashboardStats } from '@/components/dashboard/dashboard-stats';
 import { RecentSales } from '@/components/dashboard/recent-sales';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import {
   Card,
   CardContent,
@@ -10,6 +9,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import prisma from '@/lib/db';
+import { unstable_noStore as noStore } from 'next/cache';
 
 const getChartData = async () => {
   const now = new Date();
@@ -35,6 +35,8 @@ const getChartData = async () => {
 };
 
 const DashboardPage = async () => {
+  noStore();
+
   const chartData = await getChartData();
   return (
     <>

@@ -5,6 +5,7 @@ import { ShoppingBagButton } from '@/components/submit-buttons';
 import prisma from '@/lib/db';
 import { StarIcon } from 'lucide-react';
 import { notFound } from 'next/navigation';
+import { unstable_noStore as noStore } from 'next/cache';
 
 interface StoreFrontProductPageProps {
   params: {
@@ -36,6 +37,8 @@ const getProduct = async (id: string) => {
 const StoreFrontProductPage = async ({
   params: { id },
 }: StoreFrontProductPageProps) => {
+  noStore();
+
   const product = await getProduct(id);
 
   const addProductToCartAction = addProductToCart.bind(null, product.id);

@@ -14,6 +14,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import prisma from '@/lib/db';
+import { unstable_noStore as noStore } from 'next/cache';
 
 const getOrders = async () => {
   const orders = await prisma.order.findMany({
@@ -40,6 +41,8 @@ const getOrders = async () => {
 };
 
 const OrdersPage = async () => {
+  noStore();
+
   const orders = await getOrders();
 
   return (

@@ -2,6 +2,7 @@ import { ProductCard } from '@/components/storefront/product-card';
 import prisma from '@/lib/db';
 import { Category } from '@prisma/client';
 import { notFound } from 'next/navigation';
+import { unstable_noStore as noStore } from 'next/cache';
 
 const getProductsByCategory = async (category: string) => {
   switch (category) {
@@ -100,6 +101,8 @@ interface ProductsCategoryPageProps {
 const ProductsCategoryPage = async ({
   params: { category },
 }: ProductsCategoryPageProps) => {
+  noStore();
+
   const { title, products } = await getProductsByCategory(category);
 
   return (
